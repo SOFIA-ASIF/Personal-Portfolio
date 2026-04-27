@@ -2,51 +2,46 @@
 
 import { motion } from "framer-motion";
 import { TextSplit } from "@/components/ui/split-text";
-import { Award, ExternalLink } from "lucide-react";
-import {
-  SiCisco,
-  SiIbm,
-} from "react-icons/si";
-import { FaShieldAlt, FaGraduationCap } from "react-icons/fa";
+import { Award, Shield, Network, Server, ShieldCheck, Lock } from "lucide-react";
 
 const certifications = [
   {
     title: "Certified Ethical Hacker (CEH) Training",
     issuer: "NAVTTC",
     status: "Ongoing",
-    icon: FaShieldAlt,
+    icon: Shield,
     color: "#00D4AA",
   },
   {
     title: "CCNA Training",
     issuer: "Cisco Networking Academy",
-    icon: SiCisco,
+    icon: Network,
     color: "#1BA0D7",
   },
   {
     title: "IBM Security Analyst Professional Certificate",
     issuer: "IBM",
     description: "14 Courses",
-    icon: SiIbm,
+    icon: Server,
     color: "#054ADA",
   },
   {
     title: "Certified in Cybersecurity (CC)",
     issuer: "ISC2",
     year: "2024",
-    icon: FaShieldAlt,
+    icon: ShieldCheck,
     color: "#00D4AA",
   },
   {
     title: "Network Security",
     issuer: "Cisco Networking Academy",
-    icon: SiCisco,
+    icon: Lock,
     color: "#1BA0D7",
   },
   {
     title: "CyberOps Associate",
     issuer: "Cisco Networking Academy",
-    icon: SiCisco,
+    icon: Network,
     color: "#1BA0D7",
   },
 ];
