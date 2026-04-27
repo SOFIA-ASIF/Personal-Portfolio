@@ -54,11 +54,11 @@ export function AboutSection() {
             className="p-6"
             animationSpeed={8}
             gradientColors={{
-              primary: "#0a3d3d",
-              secondary: "#00d4aa",
-              accent: "#00f5c8",
+              primary: "#124170",
+              secondary: "#67C090",
+              accent: "#26667F",
             }}
-            backgroundColor="oklch(0.15 0.02 200)"
+            backgroundColor="#ffffff"
           >
             <div className="space-y-4">
               <h3 className="text-xl font-semibold text-foreground mb-4">

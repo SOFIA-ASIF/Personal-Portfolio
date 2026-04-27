@@ -2,16 +2,15 @@
 
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
-import { ContactCard } from "@/components/ui/contact-card";
 import { TextSplit } from "@/components/ui/split-text";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { MailIcon, PhoneIcon, MapPinIcon, Github, Linkedin } from "lucide-react";
+import { MailIcon, PhoneIcon, MapPinIcon, Github, Linkedin, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { AnimatedDock } from "@/components/ui/animated-dock";
+import { InteractiveGlobe } from "@/components/ui/interactive-globe";
 
 export default function ContactPage() {
   return (
@@ -34,107 +33,110 @@ export default function ContactPage() {
             </p>
           </div>
 
-          {/* Contact Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <ContactCard
-              title="Let&apos;s Connect"
-              description="Whether you have a question about cybersecurity, need help with a project, or just want to say hello, feel free to reach out. I typically respond within 24 hours."
-              className="rounded-xl"
-              contactInfo={[
-                {
-                  icon: MailIcon,
-                  label: "Email",
-                  value: "suufiyasif007@gmail.com",
-                },
-                {
-                  icon: PhoneIcon,
-                  label: "Phone",
-                  value: "+92 321 5893959",
-                },
-                {
-                  icon: MapPinIcon,
-                  label: "Location",
-                  value: "Karachi, Pakistan",
-                },
-              ]}
-            >
-              <form className="w-full space-y-4">
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="name">Name</Label>
-                  <Input id="name" type="text" placeholder="Your name" />
+          {/* Main Content with Globe Background */}
+          <div className="relative rounded-3xl border border-border bg-card overflow-hidden">
+            {/* Globe Background */}
+            <div className="absolute top-0 right-0 w-full md:w-1/2 h-full opacity-30 md:opacity-50 pointer-events-none md:pointer-events-auto">
+              <InteractiveGlobe size={600} />
+            </div>
+            
+            {/* Ambient glow */}
+            <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-[#67C090]/10 blur-3xl pointer-events-none" />
+
+            <div className="flex flex-col md:flex-row min-h-[600px]">
+              {/* Left Content - Contact Form */}
+              <div className="flex-1 flex flex-col justify-center p-8 md:p-14 relative z-10">
+                <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs text-muted-foreground mb-6 w-fit">
+                  <span className="size-1.5 rounded-full bg-[#67C090] animate-pulse" />
+                  Available for opportunities
                 </div>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="your@email.com" />
+
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+                  Let&apos;s Connect
+                </h2>
+                <p className="text-muted-foreground text-sm mb-8 max-w-md">
+                  Whether you have a question about cybersecurity, need help with a project, or just want to say hello, feel free to reach out.
+                </p>
+
+                <form className="space-y-4 max-w-md">
+                  <div className="flex flex-col gap-2">
+                    <Label htmlFor="name">Name</Label>
+                    <Input id="name" type="text" placeholder="Your name" className="bg-background" />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input id="email" type="email" placeholder="your@email.com" className="bg-background" />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea
+                      id="message"
+                      placeholder="Your message..."
+                      rows={4}
+                      className="bg-background"
+                    />
+                  </div>
+                  <Button className="w-full" type="button" style={{ backgroundColor: '#124170' }}>
+                    <Send className="w-4 h-4 mr-2" />
+                    Send Message
+                  </Button>
+                </form>
+
+                {/* Contact Info */}
+                <div className="flex flex-wrap items-center gap-6 mt-8 pt-8 border-t border-border">
+                  <div className="flex items-center gap-2">
+                    <MailIcon className="w-4 h-4 text-[#67C090]" />
+                    <span className="text-sm text-muted-foreground">suufiyasif007@gmail.com</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPinIcon className="w-4 h-4 text-[#67C090]" />
+                    <span className="text-sm text-muted-foreground">Karachi, Pakistan</span>
+                  </div>
                 </div>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="subject">Subject</Label>
-                  <Input
-                    id="subject"
-                    type="text"
-                    placeholder="What's this about?"
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    placeholder="Your message..."
-                    rows={4}
-                  />
-                </div>
-                <Button className="w-full" type="button">
-                  Send Message
-                </Button>
-              </form>
-            </ContactCard>
-          </motion.div>
+              </div>
+
+              {/* Right Side - Globe visible on larger screens */}
+              <div className="hidden md:flex flex-1 items-center justify-center relative z-0">
+                {/* Globe is positioned absolutely covering this area */}
+              </div>
+            </div>
+          </div>
 
           {/* Social Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-16 text-center"
+            className="mt-12 flex justify-center gap-4"
           >
-            <p className="text-muted-foreground mb-6">
-              Or connect with me on social media
-            </p>
-            <div className="flex justify-center">
-              <AnimatedDock
-                items={[
-                  {
-                    link: "https://github.com/sofiaasif",
-                    target: "_blank",
-                    Icon: <Github size={20} />,
-                    label: "GitHub",
-                  },
-                  {
-                    link: "https://linkedin.com/in/sofiaasif",
-                    target: "_blank",
-                    Icon: <Linkedin size={20} />,
-                    label: "LinkedIn",
-                  },
-                  {
-                    link: "mailto:suufiyasif007@gmail.com",
-                    Icon: <MailIcon size={20} />,
-                    label: "Email",
-                  },
-                ]}
-              />
-            </div>
+            <Link
+              href="https://github.com/sofiaasif"
+              target="_blank"
+              className="p-4 rounded-full border border-border bg-card hover:bg-[#124170] hover:text-white hover:border-[#124170] transition-all duration-300"
+            >
+              <Github className="w-5 h-5" />
+            </Link>
+            <Link
+              href="https://linkedin.com/in/sofiaasif"
+              target="_blank"
+              className="p-4 rounded-full border border-border bg-card hover:bg-[#124170] hover:text-white hover:border-[#124170] transition-all duration-300"
+            >
+              <Linkedin className="w-5 h-5" />
+            </Link>
+            <Link
+              href="mailto:suufiyasif007@gmail.com"
+              className="p-4 rounded-full border border-border bg-card hover:bg-[#124170] hover:text-white hover:border-[#124170] transition-all duration-300"
+            >
+              <MailIcon className="w-5 h-5" />
+            </Link>
           </motion.div>
 
-          {/* Additional Info */}
+          {/* Info Cards */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-16 grid md:grid-cols-3 gap-6"
+            className="mt-12 grid md:grid-cols-3 gap-6"
           >
             <div className="bg-card border border-border rounded-xl p-6 text-center">
               <h3 className="font-semibold text-foreground mb-2">

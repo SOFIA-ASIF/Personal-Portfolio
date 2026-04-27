@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaShieldAlt } from "react-icons/fa";
+import { Shield } from "lucide-react";
 import { AnimatedDock } from "@/components/ui/animated-dock";
 import { Github, Linkedin, Mail } from "lucide-react";
 
@@ -11,8 +11,10 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="flex flex-col items-center gap-8">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <FaShieldAlt className="w-8 h-8 text-primary" />
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="p-2 rounded-full bg-gradient-to-tr from-[#67C090] to-[#26667F]">
+              <Shield className="w-5 h-5 text-white" />
+            </div>
             <span className="font-bold text-xl text-foreground">
               Sofia Asif
             </span>
