@@ -35,8 +35,8 @@ export default function ContactPage() {
 
           {/* Main Content with Globe Background */}
           <div className="relative rounded-3xl border border-border overflow-hidden bg-gradient-to-br from-[#0a1628] via-[#0d2137] to-[#071320]">
-            {/* Globe Background - Darker and more visible */}
-            <div className="absolute top-1/2 right-0 md:right-1/4 -translate-y-1/2 w-[500px] h-[500px] md:w-[600px] md:h-[600px] opacity-60 md:opacity-80 pointer-events-none md:pointer-events-auto">
+            {/* Globe - Positioned on the right side */}
+            <div className="absolute top-1/2 right-[-100px] md:right-[-50px] lg:right-[50px] -translate-y-1/2 w-[400px] h-[400px] md:w-[550px] md:h-[550px] lg:w-[600px] lg:h-[600px] opacity-70 md:opacity-90 pointer-events-none md:pointer-events-auto">
               <InteractiveGlobe 
                 size={600}
                 dotColor="rgba(103, 192, 144, ALPHA)"
@@ -46,9 +46,9 @@ export default function ContactPage() {
               />
             </div>
             
-            {/* Multiple ambient glows for depth */}
-            <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[#67C090]/20 blur-[100px] pointer-events-none" />
-            <div className="absolute bottom-1/4 right-1/3 w-[300px] h-[300px] rounded-full bg-[#26667F]/30 blur-[80px] pointer-events-none" />
+            {/* Multiple ambient glows for depth - adjusted for right-side globe */}
+            <div className="absolute top-1/4 right-0 w-[400px] h-[400px] rounded-full bg-[#67C090]/20 blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-1/4 right-[10%] w-[300px] h-[300px] rounded-full bg-[#26667F]/30 blur-[80px] pointer-events-none" />
             <div className="absolute top-0 left-0 w-[200px] h-[200px] rounded-full bg-[#124170]/20 blur-[60px] pointer-events-none" />
 
             <div className="flex flex-col md:flex-row min-h-[650px]">
