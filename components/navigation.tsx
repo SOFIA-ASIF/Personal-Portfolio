@@ -3,10 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Shield, Menu, X, Github, Linkedin, Mail } from "lucide-react";
+import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -19,6 +18,50 @@ const socialLinks = [
   { href: "https://linkedin.com/in/sofiaasif", icon: Linkedin, label: "LinkedIn" },
   { href: "mailto:suufiyasif007@gmail.com", icon: Mail, label: "Email" },
 ];
+
+// Puffer Fish Logo Component
+const PufferFishLogo = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 64 64"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    {/* Body */}
+    <ellipse cx="32" cy="32" rx="20" ry="18" fill="url(#fishGradient)" />
+    {/* Spikes */}
+    <circle cx="14" cy="24" r="3" fill="#67C090" />
+    <circle cx="12" cy="32" r="3" fill="#67C090" />
+    <circle cx="14" cy="40" r="3" fill="#67C090" />
+    <circle cx="50" cy="24" r="3" fill="#67C090" />
+    <circle cx="52" cy="32" r="3" fill="#67C090" />
+    <circle cx="50" cy="40" r="3" fill="#67C090" />
+    <circle cx="24" cy="16" r="2.5" fill="#67C090" />
+    <circle cx="32" cy="14" r="2.5" fill="#67C090" />
+    <circle cx="40" cy="16" r="2.5" fill="#67C090" />
+    <circle cx="24" cy="48" r="2.5" fill="#67C090" />
+    <circle cx="32" cy="50" r="2.5" fill="#67C090" />
+    <circle cx="40" cy="48" r="2.5" fill="#67C090" />
+    {/* Eyes */}
+    <circle cx="26" cy="28" r="5" fill="white" />
+    <circle cx="38" cy="28" r="5" fill="white" />
+    <circle cx="27" cy="29" r="2.5" fill="#124170" />
+    <circle cx="39" cy="29" r="2.5" fill="#124170" />
+    {/* Mouth */}
+    <ellipse cx="32" cy="38" rx="4" ry="2" fill="#26667F" />
+    {/* Fins */}
+    <ellipse cx="8" cy="32" rx="4" ry="6" fill="#26667F" />
+    <ellipse cx="56" cy="32" rx="4" ry="6" fill="#26667F" />
+    {/* Tail */}
+    <path d="M52 32 L62 24 L62 40 Z" fill="#26667F" />
+    <defs>
+      <linearGradient id="fishGradient" x1="12" y1="14" x2="52" y2="50">
+        <stop offset="0%" stopColor="#67C090" />
+        <stop offset="100%" stopColor="#26667F" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
 
 export function Navigation() {
   const pathname = usePathname();
@@ -37,13 +80,13 @@ export function Navigation() {
     <header className={cn(
       "sticky top-0 z-50 w-full transition-all duration-300",
       scrolled 
-        ? "border-b border-border bg-background/95 backdrop-blur-md shadow-sm" 
-        : "bg-transparent"
+        ? "border-b border-white/20 bg-white/10 dark:bg-black/20 backdrop-blur-xl shadow-lg" 
+        : "bg-white/5 dark:bg-black/5 backdrop-blur-sm"
     )}>
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="p-2 rounded-full bg-gradient-to-tr from-[#67C090] to-[#26667F] group-hover:scale-105 transition-transform">
-            <Shield className="w-5 h-5 text-white" />
+          <div className="p-1 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-sm group-hover:scale-105 transition-transform">
+            <PufferFishLogo className="w-10 h-10" />
           </div>
           <span className="font-bold text-xl text-foreground">Sofia Asif</span>
         </Link>
@@ -75,15 +118,13 @@ export function Navigation() {
                 key={social.label}
                 href={social.href}
                 target={social.href.startsWith("mailto") ? undefined : "_blank"}
-                className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-white/20 dark:hover:bg-white/10 transition-colors"
                 aria-label={social.label}
               >
                 <social.icon className="w-4 h-4" />
               </Link>
             ))}
           </div>
-
-          <ThemeToggle />
           
           <Button asChild size="sm" style={{ backgroundColor: '#124170' }}>
             <Link href="/contact">Hire Me</Link>
@@ -92,7 +133,6 @@ export function Navigation() {
 
         {/* Mobile Menu Button */}
         <div className="flex items-center gap-2 md:hidden">
-          <ThemeToggle />
           <Button
             variant="ghost"
             size="icon"
@@ -109,7 +149,7 @@ export function Navigation() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-border bg-background">
+        <div className="md:hidden border-t border-white/20 bg-white/10 dark:bg-black/20 backdrop-blur-xl">
           <div className="container mx-auto px-4 py-6 flex flex-col gap-6">
             {/* Nav Links */}
             <div className="flex flex-col gap-2">

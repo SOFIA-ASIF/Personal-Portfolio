@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { TextSplit } from "@/components/ui/split-text";
+import { PlusCard } from "@/components/ui/plus-card";
 import { Shield, Network, Code, Brain, Users } from "lucide-react";
 
 const skillCategories = [
@@ -9,6 +10,7 @@ const skillCategories = [
     title: "Cybersecurity",
     icon: Shield,
     color: "from-emerald-500 to-teal-500",
+    description: "Expert in penetration testing, vulnerability assessment, and security monitoring using industry-standard tools.",
     skills: [
       "Kali Linux",
       "Burp Suite",
@@ -31,6 +33,7 @@ const skillCategories = [
     title: "Networking",
     icon: Network,
     color: "from-blue-500 to-cyan-500",
+    description: "Proficient in network architecture, protocols, and security configuration for enterprise environments.",
     skills: [
       "TCP/IP",
       "VLANs",
@@ -46,6 +49,7 @@ const skillCategories = [
     title: "Programming",
     icon: Code,
     color: "from-orange-500 to-amber-500",
+    description: "Full-stack development capabilities with modern frameworks and deployment pipelines.",
     skills: [
       "Python",
       "Java",
@@ -67,6 +71,7 @@ const skillCategories = [
     title: "AI / ML",
     icon: Brain,
     color: "from-pink-500 to-rose-500",
+    description: "Exploring cutting-edge AI technologies including computer vision and generative models.",
     skills: [
       "OpenCV",
       "Machine Learning Basics",
@@ -78,6 +83,7 @@ const skillCategories = [
     title: "Soft Skills",
     icon: Users,
     color: "from-indigo-500 to-purple-500",
+    description: "Strong interpersonal abilities that drive effective collaboration and leadership.",
     skills: ["Communication", "Team Coordination", "Mentoring", "Decision-Making"],
   },
 ];
@@ -99,7 +105,8 @@ export function SkillsSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Bento Grid Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 auto-rows-auto gap-4">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.title}
@@ -107,34 +114,48 @@ export function SkillsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 0.98, rotate: "-0.5deg" }}
-              className="group relative overflow-hidden rounded-2xl bg-card border border-border p-6 cursor-pointer"
+              className={
+                categoryIndex === 0 ? "lg:col-span-3 lg:row-span-2" :
+                categoryIndex === 1 ? "lg:col-span-3 lg:row-span-2" :
+                categoryIndex === 2 ? "lg:col-span-4 lg:row-span-1" :
+                categoryIndex === 3 ? "lg:col-span-2 lg:row-span-1" :
+                "lg:col-span-6 lg:row-span-1"
+              }
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div
-                  className={`p-2 rounded-lg bg-gradient-to-br ${category.color}`}
-                >
-                  <category.icon className="w-5 h-5 text-white" />
+              <PlusCard
+                title={category.title}
+                description={category.description}
+                className="h-full"
+                icon={
+                  <div className={`p-2 rounded-lg bg-gradient-to-br ${category.color} w-fit`}>
+                    <category.icon className="w-5 h-5 text-white" />
+                  </div>
+                }
+              >
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {category.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="text-xs px-2 py-1 rounded-full bg-secondary text-muted-foreground border border-border hover:border-primary hover:text-primary transition-colors"
+                    >
+                      {skill}
+                    </span>
+                  ))}
                 </div>
-                <h3 className="font-semibold text-foreground text-lg">
-                  {category.title}
-                </h3>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="text-xs px-2 py-1 rounded-full bg-secondary text-muted-foreground border border-border hover:border-primary hover:text-primary transition-colors"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-              <div
-                className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${category.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300`}
-              />
+              </PlusCard>
             </motion.div>
           ))}
+        </div>
+
+        {/* Section Footer */}
+        <div className="max-w-2xl ml-auto text-right px-4 mt-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+            Built for security. Designed for excellence.
+          </h2>
+          <p className="text-muted-foreground">
+            Each skill is honed through hands-on experience and continuous learning, 
+            ensuring robust solutions for complex challenges.
+          </p>
         </div>
       </div>
     </section>

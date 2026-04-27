@@ -2,12 +2,14 @@
 
 import { motion } from "framer-motion";
 import { TextSplit } from "@/components/ui/split-text";
-import { Award, Shield, Network, Server, ShieldCheck, Lock } from "lucide-react";
+import { PlusCard } from "@/components/ui/plus-card";
+import { Shield, Network, Server, ShieldCheck, Lock } from "lucide-react";
 
 const certifications = [
   {
     title: "Certified Ethical Hacker (CEH) Training",
     issuer: "NAVTTC",
+    description: "Comprehensive training on ethical hacking methodologies, penetration testing, and vulnerability assessment.",
     status: "Ongoing",
     icon: Shield,
     color: "#00D4AA",
@@ -15,19 +17,21 @@ const certifications = [
   {
     title: "CCNA Training",
     issuer: "Cisco Networking Academy",
+    description: "Industry-recognized certification covering networking fundamentals, routing, switching, and security basics.",
     icon: Network,
     color: "#1BA0D7",
   },
   {
     title: "IBM Security Analyst Professional Certificate",
     issuer: "IBM",
-    description: "14 Courses",
+    description: "Comprehensive 14-course program covering threat intelligence, incident response, and security operations.",
     icon: Server,
     color: "#054ADA",
   },
   {
     title: "Certified in Cybersecurity (CC)",
     issuer: "ISC2",
+    description: "Foundation-level certification validating core cybersecurity knowledge and best practices.",
     year: "2024",
     icon: ShieldCheck,
     color: "#00D4AA",
@@ -35,12 +39,14 @@ const certifications = [
   {
     title: "Network Security",
     issuer: "Cisco Networking Academy",
+    description: "Specialized training in network security principles, firewall management, and secure network design.",
     icon: Lock,
     color: "#1BA0D7",
   },
   {
     title: "CyberOps Associate",
     issuer: "Cisco Networking Academy",
+    description: "Security operations center fundamentals including monitoring, detection, and incident analysis.",
     icon: Network,
     color: "#1BA0D7",
   },
@@ -63,7 +69,8 @@ export function CertificationsSection() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Bento Grid Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 auto-rows-auto gap-4">
           {certifications.map((cert, index) => (
             <motion.div
               key={cert.title}
@@ -71,39 +78,59 @@ export function CertificationsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ y: -5 }}
-              className="group relative bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-all duration-300"
+              className={
+                index === 0 ? "lg:col-span-3 lg:row-span-2" :
+                index === 1 ? "lg:col-span-3 lg:row-span-1" :
+                index === 2 ? "lg:col-span-3 lg:row-span-1" :
+                index === 3 ? "lg:col-span-2 lg:row-span-1" :
+                index === 4 ? "lg:col-span-2 lg:row-span-1" :
+                "lg:col-span-2 lg:row-span-1"
+              }
             >
-              <div className="flex items-start justify-between mb-4">
-                <div
-                  className="p-3 rounded-lg"
-                  style={{ backgroundColor: `${cert.color}20` }}
-                >
-                  <cert.icon
-                    className="w-6 h-6"
-                    style={{ color: cert.color }}
-                  />
-                </div>
-                {cert.status === "Ongoing" && (
-                  <span className="text-xs px-2 py-1 rounded-full bg-primary/20 text-primary">
-                    Ongoing
-                  </span>
-                )}
-                {cert.year && (
-                  <span className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">
-                    {cert.year}
-                  </span>
-                )}
-              </div>
-              <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                {cert.title}
-              </h3>
-              <p className="text-sm text-muted-foreground">{cert.issuer}</p>
-              {cert.description && (
-                <p className="text-xs text-primary mt-2">{cert.description}</p>
-              )}
+              <PlusCard
+                title={cert.title}
+                description={cert.description}
+                className="h-full"
+                icon={
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="p-2 rounded-lg"
+                      style={{ backgroundColor: `${cert.color}20` }}
+                    >
+                      <cert.icon
+                        className="w-5 h-5"
+                        style={{ color: cert.color }}
+                      />
+                    </div>
+                    {cert.status === "Ongoing" && (
+                      <span className="text-xs px-2 py-1 rounded-full bg-primary/20 text-primary font-medium">
+                        Ongoing
+                      </span>
+                    )}
+                    {cert.year && (
+                      <span className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">
+                        {cert.year}
+                      </span>
+                    )}
+                  </div>
+                }
+              >
+                <p className="text-sm text-muted-foreground mt-2">
+                  Issued by <span className="text-primary font-medium">{cert.issuer}</span>
+                </p>
+              </PlusCard>
             </motion.div>
           ))}
+        </div>
+
+        {/* Section Footer */}
+        <div className="max-w-2xl ml-auto text-right px-4 mt-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+            Committed to continuous growth.
+          </h2>
+          <p className="text-muted-foreground">
+            Pursuing industry-recognized certifications to stay at the forefront of cybersecurity excellence.
+          </p>
         </div>
       </div>
     </section>
