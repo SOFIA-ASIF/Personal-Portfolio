@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { MailIcon, PhoneIcon, MapPinIcon, Github, Linkedin, Send } from "lucide-react";
+import { MailIcon, MapPinIcon, Github, Linkedin, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { InteractiveGlobe } from "@/components/ui/interactive-globe";
@@ -34,70 +34,91 @@ export default function ContactPage() {
           </div>
 
           {/* Main Content with Globe Background */}
-          <div className="relative rounded-3xl border border-border bg-card overflow-hidden">
-            {/* Globe Background */}
-            <div className="absolute top-0 right-0 w-full md:w-1/2 h-full opacity-30 md:opacity-50 pointer-events-none md:pointer-events-auto">
-              <InteractiveGlobe size={600} />
+          <div className="relative rounded-3xl border border-border overflow-hidden bg-gradient-to-br from-[#0a1628] via-[#0d2137] to-[#071320]">
+            {/* Globe Background - Darker and more visible */}
+            <div className="absolute top-1/2 right-0 md:right-1/4 -translate-y-1/2 w-[500px] h-[500px] md:w-[600px] md:h-[600px] opacity-60 md:opacity-80 pointer-events-none md:pointer-events-auto">
+              <InteractiveGlobe 
+                size={600}
+                dotColor="rgba(103, 192, 144, ALPHA)"
+                arcColor="rgba(38, 102, 127, 0.7)"
+                markerColor="rgba(103, 192, 144, 1)"
+                autoRotateSpeed={0.003}
+              />
             </div>
             
-            {/* Ambient glow */}
-            <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-[#67C090]/10 blur-3xl pointer-events-none" />
+            {/* Multiple ambient glows for depth */}
+            <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[#67C090]/20 blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-1/4 right-1/3 w-[300px] h-[300px] rounded-full bg-[#26667F]/30 blur-[80px] pointer-events-none" />
+            <div className="absolute top-0 left-0 w-[200px] h-[200px] rounded-full bg-[#124170]/20 blur-[60px] pointer-events-none" />
 
-            <div className="flex flex-col md:flex-row min-h-[600px]">
+            <div className="flex flex-col md:flex-row min-h-[650px]">
               {/* Left Content - Contact Form */}
               <div className="flex-1 flex flex-col justify-center p-8 md:p-14 relative z-10">
-                <div className="inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs text-muted-foreground mb-6 w-fit">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#67C090]/30 bg-[#67C090]/10 px-3 py-1 text-xs text-[#67C090] mb-6 w-fit backdrop-blur-sm">
                   <span className="size-1.5 rounded-full bg-[#67C090] animate-pulse" />
                   Available for opportunities
                 </div>
 
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
                   Let&apos;s Connect
                 </h2>
-                <p className="text-muted-foreground text-sm mb-8 max-w-md">
+                <p className="text-[#9fcab5] text-sm mb-8 max-w-md">
                   Whether you have a question about cybersecurity, need help with a project, or just want to say hello, feel free to reach out.
                 </p>
 
                 <form className="space-y-4 max-w-md">
                   <div className="flex flex-col gap-2">
-                    <Label htmlFor="name">Name</Label>
-                    <Input id="name" type="text" placeholder="Your name" className="bg-background" />
+                    <Label htmlFor="name" className="text-[#DDF4E7]">Name</Label>
+                    <Input 
+                      id="name" 
+                      type="text" 
+                      placeholder="Your name" 
+                      className="bg-[#0d2137]/80 border-[#26667F]/50 text-white placeholder:text-[#67C090]/50 focus:border-[#67C090] backdrop-blur-sm" 
+                    />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="your@email.com" className="bg-background" />
+                    <Label htmlFor="email" className="text-[#DDF4E7]">Email</Label>
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      placeholder="your@email.com" 
+                      className="bg-[#0d2137]/80 border-[#26667F]/50 text-white placeholder:text-[#67C090]/50 focus:border-[#67C090] backdrop-blur-sm" 
+                    />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <Label htmlFor="message">Message</Label>
+                    <Label htmlFor="message" className="text-[#DDF4E7]">Message</Label>
                     <Textarea
                       id="message"
                       placeholder="Your message..."
                       rows={4}
-                      className="bg-background"
+                      className="bg-[#0d2137]/80 border-[#26667F]/50 text-white placeholder:text-[#67C090]/50 focus:border-[#67C090] backdrop-blur-sm"
                     />
                   </div>
-                  <Button className="w-full" type="button" style={{ backgroundColor: '#124170' }}>
+                  <Button 
+                    className="w-full bg-gradient-to-r from-[#67C090] to-[#26667F] hover:from-[#67C090]/90 hover:to-[#26667F]/90 text-white font-semibold shadow-lg shadow-[#67C090]/20" 
+                    type="button"
+                  >
                     <Send className="w-4 h-4 mr-2" />
                     Send Message
                   </Button>
                 </form>
 
                 {/* Contact Info */}
-                <div className="flex flex-wrap items-center gap-6 mt-8 pt-8 border-t border-border">
+                <div className="flex flex-wrap items-center gap-6 mt-8 pt-8 border-t border-[#26667F]/30">
                   <div className="flex items-center gap-2">
                     <MailIcon className="w-4 h-4 text-[#67C090]" />
-                    <span className="text-sm text-muted-foreground">suufiyasif007@gmail.com</span>
+                    <span className="text-sm text-[#9fcab5]">suufiyasif007@gmail.com</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <MapPinIcon className="w-4 h-4 text-[#67C090]" />
-                    <span className="text-sm text-muted-foreground">Karachi, Pakistan</span>
+                    <span className="text-sm text-[#9fcab5]">Karachi, Pakistan</span>
                   </div>
                 </div>
               </div>
 
-              {/* Right Side - Globe visible on larger screens */}
+              {/* Right Side - Spacer for globe */}
               <div className="hidden md:flex flex-1 items-center justify-center relative z-0">
-                {/* Globe is positioned absolutely covering this area */}
+                {/* Globe is positioned absolutely */}
               </div>
             </div>
           </div>
@@ -112,20 +133,20 @@ export default function ContactPage() {
             <Link
               href="https://github.com/sofiaasif"
               target="_blank"
-              className="p-4 rounded-full border border-border bg-card hover:bg-[#124170] hover:text-white hover:border-[#124170] transition-all duration-300"
+              className="p-4 rounded-full border border-border bg-card hover:bg-gradient-to-r hover:from-[#67C090] hover:to-[#26667F] hover:text-white hover:border-transparent transition-all duration-300 shadow-lg hover:shadow-[#67C090]/30"
             >
               <Github className="w-5 h-5" />
             </Link>
             <Link
               href="https://linkedin.com/in/sofiaasif"
               target="_blank"
-              className="p-4 rounded-full border border-border bg-card hover:bg-[#124170] hover:text-white hover:border-[#124170] transition-all duration-300"
+              className="p-4 rounded-full border border-border bg-card hover:bg-gradient-to-r hover:from-[#67C090] hover:to-[#26667F] hover:text-white hover:border-transparent transition-all duration-300 shadow-lg hover:shadow-[#67C090]/30"
             >
               <Linkedin className="w-5 h-5" />
             </Link>
             <Link
               href="mailto:suufiyasif007@gmail.com"
-              className="p-4 rounded-full border border-border bg-card hover:bg-[#124170] hover:text-white hover:border-[#124170] transition-all duration-300"
+              className="p-4 rounded-full border border-border bg-card hover:bg-gradient-to-r hover:from-[#67C090] hover:to-[#26667F] hover:text-white hover:border-transparent transition-all duration-300 shadow-lg hover:shadow-[#67C090]/30"
             >
               <MailIcon className="w-5 h-5" />
             </Link>
@@ -138,7 +159,7 @@ export default function ContactPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mt-12 grid md:grid-cols-3 gap-6"
           >
-            <div className="bg-card border border-border rounded-xl p-6 text-center">
+            <div className="bg-card border border-border rounded-xl p-6 text-center hover:border-[#67C090]/50 transition-colors">
               <h3 className="font-semibold text-foreground mb-2">
                 Available For
               </h3>
@@ -147,7 +168,7 @@ export default function ContactPage() {
                 opportunities
               </p>
             </div>
-            <div className="bg-card border border-border rounded-xl p-6 text-center">
+            <div className="bg-card border border-border rounded-xl p-6 text-center hover:border-[#67C090]/50 transition-colors">
               <h3 className="font-semibold text-foreground mb-2">
                 Response Time
               </h3>
@@ -155,7 +176,7 @@ export default function ContactPage() {
                 I typically respond within 24-48 hours during weekdays
               </p>
             </div>
-            <div className="bg-card border border-border rounded-xl p-6 text-center">
+            <div className="bg-card border border-border rounded-xl p-6 text-center hover:border-[#67C090]/50 transition-colors">
               <h3 className="font-semibold text-foreground mb-2">Time Zone</h3>
               <p className="text-muted-foreground text-sm">
                 Pakistan Standard Time (PKT) - UTC+5
