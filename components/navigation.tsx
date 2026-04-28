@@ -14,8 +14,8 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  { href: "https://github.com/sofiaasif", icon: Github, label: "GitHub" },
-  { href: "https://linkedin.com/in/sofiaasif", icon: Linkedin, label: "LinkedIn" },
+  { href: "https://github.com/SOFIA-ASIF", icon: Github, label: "GitHub" },
+  { href: "https://www.linkedin.com/in/sofia-asif/", icon: Linkedin, label: "LinkedIn" },
   { href: "mailto:suufiyasif007@gmail.com", icon: Mail, label: "Email" },
 ];
 
@@ -81,7 +81,7 @@ export function Navigation() {
       "sticky top-0 z-50 w-full transition-all duration-300",
       scrolled 
         ? "border-b border-white/20 bg-white/10 dark:bg-black/20 backdrop-blur-xl shadow-lg" 
-        : "bg-white/5 dark:bg-black/5 backdrop-blur-sm"
+        : "bg-white/5 dark:bg-black/5 backdrop-blur-sm px-[10rem]"
     )}>
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">

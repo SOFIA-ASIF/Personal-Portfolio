@@ -290,7 +290,7 @@ export default function ProjectsPage() {
                 Get In Touch
               </Link>
               <Link
-                href="https://github.com/sofiaasif"
+                href="https://github.com/SOFIA-ASIF"
                 target="_blank"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-[#124170] text-[#124170] font-medium hover:bg-[#124170] hover:text-white transition-colors"
               >

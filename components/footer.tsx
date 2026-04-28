@@ -334,7 +334,7 @@ export function Footer() {
               <div className="flex flex-wrap justify-center gap-4 w-full">
                 <MagneticButton
                   as="a"
-                  href="https://github.com/sofiaasif"
+                  href="https://github.com/SOFIA-ASIF"
                   target="_blank"
                   className="footer-glass-pill px-8 py-4 rounded-full text-foreground font-bold text-sm md:text-base flex items-center gap-3 group"
                 >
@@ -344,7 +344,7 @@ export function Footer() {
 
                 <MagneticButton
                   as="a"
-                  href="https://linkedin.com/in/sofiaasif"
+                  href="https://www.linkedin.com/in/sofia-asif/"
                   target="_blank"
                   className="footer-glass-pill px-8 py-4 rounded-full text-foreground font-bold text-sm md:text-base flex items-center gap-3 group"
                 >
@@ -396,7 +396,7 @@ export function Footer() {
               {new Date().getFullYear()} Sofia Asif. All rights reserved.
             </div>
 
-            {/* Made with Love Badge */}
+            {/* Made with Love Badge
             <div className="footer-glass-pill px-6 py-3 rounded-full flex items-center gap-2 order-1 md:order-2 cursor-default border-border/50">
               <span className="text-muted-foreground text-[10px] md:text-xs font-bold uppercase tracking-widest">
                 Crafted with
@@ -407,7 +407,7 @@ export function Footer() {
               <span className="text-muted-foreground text-[10px] md:text-xs font-bold uppercase tracking-widest">
                 in Karachi
               </span>
-            </div>
+            </div> */}
 
             {/* Back to top */}
             <MagneticButton

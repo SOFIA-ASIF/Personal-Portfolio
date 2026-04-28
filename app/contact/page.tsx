@@ -131,14 +131,14 @@ export default function ContactPage() {
             className="mt-12 flex justify-center gap-4"
           >
             <Link
-              href="https://github.com/sofiaasif"
+              href="https://github.com/SOFIA-ASIF"
               target="_blank"
               className="p-4 rounded-full border border-border bg-card hover:bg-gradient-to-r hover:from-[#67C090] hover:to-[#26667F] hover:text-white hover:border-transparent transition-all duration-300 shadow-lg hover:shadow-[#67C090]/30"
             >
               <Github className="w-5 h-5" />
             </Link>
             <Link
-              href="https://linkedin.com/in/sofiaasif"
+              href="https://www.linkedin.com/in/sofia-asif/"
               target="_blank"
               className="p-4 rounded-full border border-border bg-card hover:bg-gradient-to-r hover:from-[#67C090] hover:to-[#26667F] hover:text-white hover:border-transparent transition-all duration-300 shadow-lg hover:shadow-[#67C090]/30"
             >
