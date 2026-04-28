@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
 });
 
+
 export const metadata: Metadata = {
   title: "Sofia Asif | Cybersecurity Professional",
   description:
@@ -27,6 +28,7 @@ export const metadata: Metadata = {
     "Wazuh",
     "ethical hacking",
   ],
+
   icons: {
     icon: [
       {
@@ -43,6 +45,22 @@ export const metadata: Metadata = {
       },
     ],
     apple: "/apple-icon.png",
+  },
+
+  openGraph: {
+    title: "Sofia Asif | Cybersecurity Professional",
+    description:
+      "Entry-level cybersecurity practitioner with hands-on exposure to offensive and defensive security, network monitoring, and SIEM deployment.",
+    url: "https://www.sofia-asif.me/", // replace after deploy
+    siteName: "Sofia Asif Portfolio",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Sofia Asif | Cybersecurity Professional",
+    description:
+      "Entry-level cybersecurity practitioner with hands-on exposure to offensive and defensive security, network monitoring, and SIEM deployment.",
   },
 };
 
