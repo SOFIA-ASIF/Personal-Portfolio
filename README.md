@@ -1,35 +1,19 @@
-# v0-portfolio-website-generation
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+### EmailJS setup
 
-## Built with v0
-
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
-
-[Continue working on v0 →](https://v0.app/chat/projects/prj_qbfjH0m5XWBWVa0a4BndIikgqjc2)
-
-## Getting Started
-
-First, run the development server:
+The contact form sends directly through EmailJS from the browser. Add these
+environment variables to your local `.env.local` file before testing the form:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
 ```
+
+Make sure your EmailJS template expects the fields `from_name`, `from_email`,
+`reply_to`, `to_name`, `to_email`, and `message`.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Learn More
-
-To learn more, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
-
-<a href="https://v0.app/chat/api/kiro/clone/SOFIA-ASIF/v0-portfolio-website-generation" alt="Open in Kiro"><img src="https://pdgvvgmkdvyeydso.public.blob.vercel-storage.com/open%20in%20kiro.svg?sanitize=true" /></a>

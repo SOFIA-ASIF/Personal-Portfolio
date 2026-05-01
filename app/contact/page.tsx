@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import emailjs from "@emailjs/browser";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { TextSplit } from "@/components/ui/split-text";
@@ -12,7 +14,161 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { InteractiveGlobe } from "@/components/ui/interactive-globe";
 
+type FormState = {
+  name: string;
+  email: string;
+  message: string;
+};
+
+type SubmissionState =
+  | { type: "idle"; message: string }
+  | { type: "success"; message: string }
+  | { type: "error"; message: string };
+
+const initialFormState: FormState = {
+  name: "",
+  email: "",
+  message: "",
+};
+
+const emailjsServiceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+const emailjsTemplateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+const emailjsAutoReplyTemplateId = process.env.NEXT_PUBLIC_EMAILJS_AUTO_REPLY_TEMPLATE_ID;
+const emailjsPublicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+function sanitizeName(value: string) {
+  return value.replace(/[\u0000-\u001F\u007F]/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function sanitizeEmail(value: string) {
+  return value.replace(/[\u0000-\u001F\u007F\s]/g, "").toLowerCase().trim();
+}
+
+function sanitizeMessage(value: string) {
+  return value
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "")
+    .replace(/\r\n/g, "\n")
+    .replace(/[ \t]*\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n");
+}
+
 export default function ContactPage() {
+  const [formData, setFormData] = useState<FormState>(initialFormState);
+  const [isSending, setIsSending] = useState(false);
+  const [submissionState, setSubmissionState] = useState<SubmissionState>({
+    type: "idle",
+    message: "",
+  });
+
+  const handleInputChange =
+    (field: keyof FormState) =>
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const nextValue = event.target.value;
+
+      setFormData((current) => {
+        if (field === "name") {
+          return { ...current, name: sanitizeName(nextValue) };
+        }
+
+        if (field === "email") {
+          return { ...current, email: sanitizeEmail(nextValue) };
+        }
+
+          return { ...current, message: nextValue };
+      });
+
+      if (submissionState.type !== "idle") {
+        setSubmissionState({ type: "idle", message: "" });
+      }
+    };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const name = sanitizeName(formData.name);
+    const email = sanitizeEmail(formData.email);
+    const message = sanitizeMessage(formData.message).trim();
+
+    if (!name || !email || !message) {
+      setSubmissionState({
+        type: "error",
+        message: "Please fill in your name, email, and message.",
+      });
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setSubmissionState({
+        type: "error",
+        message: "Please enter a valid email address.",
+      });
+      return;
+    }
+
+    if (!emailjsServiceId || !emailjsTemplateId || !emailjsPublicKey || !emailjsAutoReplyTemplateId) {
+      setSubmissionState({
+        type: "error",
+        message:
+          "Email delivery is not configured yet. Add the EmailJS environment variables first.",
+      });
+      return;
+    }
+
+    setIsSending(true);
+    setSubmissionState({ type: "idle", message: "" });
+
+    try {
+      // Send email to admin
+      await emailjs.send(
+        emailjsServiceId,
+        emailjsTemplateId,
+        {
+          from_name: name,
+          from_email: email,
+          reply_to: email,
+          to_name: "Sofia Asif",
+          to_email: "suufiyasif007@gmail.com",
+          message,
+        },
+        {
+          publicKey: emailjsPublicKey,
+        }
+      );
+
+      // Send auto-reply to user
+      await emailjs.send(
+        emailjsServiceId,
+        emailjsTemplateId,
+        {
+          from_name: "Sofia Asif",
+          from_email: "suufiyasif007@gmail.com",
+          to_name: name,
+          to_email: email,
+          reply_to: "suufiyasif007@gmail.com",
+          message,
+          // auto_reply_message: "Thank you for reaching out! I have received your message and will get back to you as soon as possible. I typically respond within 24-48 hours.",
+        },
+        {
+          publicKey: emailjsPublicKey,
+        }
+      );
+
+      setSubmissionState({
+        type: "success",
+        message: "Your message was sent successfully. Check your email for a confirmation.",
+      });
+      setFormData(initialFormState);
+    } catch {
+      setSubmissionState({
+        type: "error",
+        message:
+          "Something went wrong while sending your message. Please try again.",
+      });
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -66,13 +222,18 @@ export default function ContactPage() {
                   Whether you have a question about cybersecurity, need help with a project, or just want to say hello, feel free to reach out.
                 </p>
 
-                <form className="space-y-4 max-w-md">
+                <form className="space-y-4 max-w-md" onSubmit={handleSubmit}>
                   <div className="flex flex-col gap-2">
                     <Label htmlFor="name" className="text-[#DDF4E7]">Name</Label>
                     <Input 
                       id="name" 
                       type="text" 
                       placeholder="Your name" 
+                      value={formData.name}
+                      onChange={handleInputChange("name")}
+                      autoComplete="name"
+                      maxLength={100}
+                      required
                       className="bg-[#0d2137]/80 border-[#26667F]/50 text-white placeholder:text-[#67C090]/50 focus:border-[#67C090] backdrop-blur-sm" 
                     />
                   </div>
@@ -82,6 +243,11 @@ export default function ContactPage() {
                       id="email" 
                       type="email" 
                       placeholder="your@email.com" 
+                      value={formData.email}
+                      onChange={handleInputChange("email")}
+                      autoComplete="email"
+                      maxLength={254}
+                      required
                       className="bg-[#0d2137]/80 border-[#26667F]/50 text-white placeholder:text-[#67C090]/50 focus:border-[#67C090] backdrop-blur-sm" 
                     />
                   </div>
@@ -91,16 +257,34 @@ export default function ContactPage() {
                       id="message"
                       placeholder="Your message..."
                       rows={4}
+                      value={formData.message}
+                      onChange={handleInputChange("message")}
+                      maxLength={4000}
+                      required
                       className="bg-[#0d2137]/80 border-[#26667F]/50 text-white placeholder:text-[#67C090]/50 focus:border-[#67C090] backdrop-blur-sm"
                     />
                   </div>
                   <Button 
                     className="w-full bg-gradient-to-r from-[#67C090] to-[#26667F] hover:from-[#67C090]/90 hover:to-[#26667F]/90 text-white font-semibold shadow-lg shadow-[#67C090]/20" 
-                    type="button"
+                    type="submit"
+                    disabled={isSending}
                   >
                     <Send className="w-4 h-4 mr-2" />
-                    Send Message
+                    {isSending ? "Sending..." : "Send Message"}
                   </Button>
+                  <p
+                    className={`text-sm ${
+                      submissionState.type === "success"
+                        ? "text-[#67C090]"
+                        : submissionState.type === "error"
+                          ? "text-red-300"
+                          : "text-[#9fcab5]"
+                    }`}
+                    aria-live="polite"
+                  >
+                    {submissionState.message ||
+                      "Messages are sent directly through EmailJS after light client-side sanitization."}
+                  </p>
                 </form>
 
                 {/* Contact Info */}
