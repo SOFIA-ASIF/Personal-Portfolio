@@ -33,7 +33,6 @@ const initialFormState: FormState = {
 
 const emailjsServiceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
 const emailjsTemplateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-const emailjsAutoReplyTemplateId = process.env.NEXT_PUBLIC_EMAILJS_AUTO_REPLY_TEMPLATE_ID;
 const emailjsPublicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
 function sanitizeName(value: string) {
@@ -105,7 +104,7 @@ export default function ContactPage() {
       return;
     }
 
-    if (!emailjsServiceId || !emailjsTemplateId || !emailjsPublicKey || !emailjsAutoReplyTemplateId) {
+    if (!emailjsServiceId || !emailjsTemplateId || !emailjsPublicKey ) {
       setSubmissionState({
         type: "error",
         message:
